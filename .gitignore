@@ -1,3 +1,8 @@
+# ============================================
+# CLAWDRA .gitignore
+# Files that should NOT be on GitHub
+# ============================================
+
 # Dependencies
 node_modules/
 package-lock.json
@@ -6,12 +11,12 @@ package-lock.json
 dist/
 *.tsbuildinfo
 
-# Environment
+# Environment files
 .env
 .env.local
 .env.*.local
 
-# Reference repos (not for GitHub)
+# Reference repos (cloned for study, not for GitHub)
 reference-repos/
 
 # OS files
@@ -26,7 +31,7 @@ desktop.ini
 *.swo
 *~
 
-# Memory/data
+# Memory / data / logs
 data/*.db
 data/*.sqlite
 *.log
@@ -41,3 +46,21 @@ coverage/
 
 # SQLite memory
 ~/.clawdra/
+
+# Internal development files
+.omc/
+.omc/
+IMPLEMENTATION-SUMMARY.md
+COMPLETE-CATALOG.md
+QUICKSTART.md
+learning-list.txt
+
+# TypeScript project references
+tsconfig.tsbuildinfo
+
+# Skills directory (if user creates custom skills)
+skills/**/*.md
+
+# Runtime state
+*.pid
+*.sock
