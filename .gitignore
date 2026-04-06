@@ -1,0 +1,67 @@
+# ============================================
+# CLAWDRA .gitignore
+# Files that should NOT be on GitHub
+# ============================================
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Reference repos (cloned for study, not for GitHub)
+reference-repos/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Memory / data / logs
+data/*.db
+data/*.sqlite
+*.log
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# Test coverage
+coverage/
+
+# SQLite memory
+~/.clawdra/
+
+# Internal development files
+.omc/
+.omc/
+IMPLEMENTATION-SUMMARY.md
+COMPLETE-CATALOG.md
+QUICKSTART.md
+learning-list.txt
+
+# TypeScript project references
+tsconfig.tsbuildinfo
+
+# Skills directory (if user creates custom skills)
+skills/**/*.md
+
+# Runtime state
+*.pid
+*.sock
+node_modules
