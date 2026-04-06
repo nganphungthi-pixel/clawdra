@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Reference repos (not for GitHub)
+reference-repos/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Memory/data
+data/*.db
+data/*.sqlite
+*.log
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# Test coverage
+coverage/
+
+# SQLite memory
+~/.clawdra/

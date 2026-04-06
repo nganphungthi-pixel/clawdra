@@ -1,0 +1,79 @@
+version: "3.8"
+
+services:
+  # Main clawdra agent
+  clawdra:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clawdra
+    ports:
+      - "3000:3000"  # WebSocket gateway
+      - "4000:4000"  # Webhook channel
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - EXA_API_KEY=${EXA_API_KEY}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN}
+      - SLACK_APP_TOKEN=${SLACK_APP_TOKEN}
+      - SLACK_SIGNING_SECRET=${SLACK_SIGNING_SECRET}
+      - ENABLE_LEARNING=true
+      - ENABLE_MULTI_MODEL_ROUTING=false
+      - ENABLE_SANDBOX=true
+      - SANDBOX_TYPE=docker
+    volumes:
+      - clawdra-memory:/home/clawdra/.clawdra
+      - /var/run/docker.sock:/var/run/docker.sock  # For Docker sandbox
+    restart: unless-stopped
+    networks:
+      - clawdra-network
+
+  # Sandbox container (for isolated code execution)
+  sandbox:
+    image: alpine:latest
+    container_name: clawdra-sandbox
+    command: ["sleep", "infinity"]
+    restart: unless-stopped
+    networks:
+      - clawdra-network
+
+  # Optional: Ollama for local model inference
+  ollama:
+    image: ollama/ollama:latest
+    container_name: clawdra-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+    networks:
+      - clawdra-network
+    profiles:
+      - local-ai
+
+  # Optional: Redis for session storage
+  redis:
+    image: redis:7-alpine
+    container_name: clawdra-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    networks:
+      - clawdra-network
+    profiles:
+      - production
+
+volumes:
+  clawdra-memory:
+  ollama-data:
+  redis-data:
+
+networks:
+  clawdra-network:
+    driver: bridge
